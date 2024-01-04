@@ -1,0 +1,22 @@
+
+<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
+<header>
+    <div class="topnav">
+        <h1>BePloit</h1>
+        <div class="topnavButtons">
+            <a href="/">Home</a>
+        </div>
+        <div class="search-container">
+            <form action="/search">
+              <input type="text" placeholder="Search" name="search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="topnavButtons">
+            <a th:if="${user == null}" href="/login">Login</a>
+            <a th:if="${user != null}" href="/logoff">Logoff</a>
+            <a th:if="${user != null and user.role == 'admn'}" href="/admin">Admin</a>
+            <a th:if="${user != null}" href="/user-profile">Account</a>
+        </div>
+    </div>
+</header>

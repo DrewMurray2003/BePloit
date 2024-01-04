@@ -1,0 +1,37 @@
+@import url(tables.css);
+@import url(forms.css);
+@import url(navbar.css);
+@import url(search.css);
+@import url(colors.css);
+
+body {
+    font-family: 'calibri', 'sans-serif';
+    margin: 0;
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+h1, p, h4, h3, h2 {
+    margin: 0;
+}
+
+a {
+    color: var(--main-accent)
+}
+
+.body-container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 100%;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}

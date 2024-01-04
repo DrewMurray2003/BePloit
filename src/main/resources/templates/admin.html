@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
+    <title>Admin</title>
+    <link rel="icon" type="image/x-icon" href="/images/beploit.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div th:insert="navbar.html" th:with="user=${user}"></div>
+    <div class="body-container">
+
+        <a href="/register" style="color: blue;">Create Account</a>
+        <div th:insert="adminTable.html" th:with="tableItems=${accounts}, className='Account'"></div>
+        <br><br>
+        <div th:insert="adminTable.html" th:with="tableItems=${products}, className='Product'"></div>
+
+    </div>
+</body>
+</html>

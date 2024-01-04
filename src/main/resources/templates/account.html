@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="/images/beploit.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+</head>
+<body>
+    <div th:insert="navbar.html" th:with="user=${user}"></div>
+    <div class="body-container">
+        <h1 th:text="${account.firstName} + ' ' + ${account.lastName}"></h1>
+        <br>
+        <div class="space-between">
+            <div>
+                <div>
+                    <form th:object="${account}" method="post" th:action="'/save-user?id=' + ${account.accountId}">
+                        <h3>Account Information</h3>
+                        <br>
+                        <h4>First Name:</h4>
+                        <input type="text" name="firstName" th:field="*{firstName}" required th:disabled="${!edit}">
+                        <br>
+                        <h4>Last Name:</h4>
+                        <input type="text" name="lastName" th:field="*{lastName}" required th:disabled="${!edit}">
+                        <br>
+                        <p th:if="${emailError != null}" th:text="${emailError}"></p>
+                        <h4>Email:</h4>
+                        <input type="text" name="email" th:field="*{email}" required th:disabled="${!edit}">
+                        <br>
+                        <p th:if="${phoneError != null}" th:text="${phoneError}"></p>
+                        <h4>Phone Number:</h4>
+                        <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required th:disabled="${!edit}">
+                        <br>
+                        <button th:if="${edit}">Save</button>
+                        <a style="color: blue;" th:href="'/edit-user-verify?id=' + ${account.accountId}" th:if="${!edit}">Edit</a>
+                        <a style="color: blue;" th:href="'/delete-user?id=' + ${account.accountId}" th:if="${!edit}">Delete</a>
+                    </form>
+                </div>
+            </div>
+            
+            <div>
+                <table th:object="${orders}" th:each="order: ${orders}" class="bp-table">
+                    <th th:text="'Order #' + ${order.orderId}"></th>
+                    <tr th:each="product: ${order.orderItems}">
+                        <td>
+                            <h3 th:text="${product.product.name}"></h3>
+                        </td>
+                    </tr>
+                </table>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+      $('#phoneNumber').inputmask('(999) 999-9999');
+    });
+</script>

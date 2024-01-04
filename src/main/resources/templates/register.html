@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="icon" type="image/x-icon" href="/images/beploit.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+</head>
+<body>
+    <div th:insert="navbar.html" th:with="user=${user}"></div>
+    <h2>Register</h2>
+    <form action="/register" method="post" th:object="${account}">
+        
+        <label>First Name</label>
+        <input type="text" name="firstName" th:field="*{firstName}" required>
+        <br>
+        <label>Last Name</label>
+        <input type="text" name="lastName" th:field="*{lastName}" required>
+        <br>
+        <p th:if="${emailError != null}" th:text="${emailError}"></p>
+        <label>Email</label>
+        <input type="text" name="email" th:field="*{email}" required>
+        <br>
+        <p th:if="${phoneError != null}" th:text="${phoneError}"></p>
+        <label>Phone Number</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required>
+        <br>
+        <label>Password</label>
+        <input type="password" name="password" th:field="*{password}" required>
+        <br>
+        <div th:if="${user != null and user.role == 'admn'}">
+            <label>Role</label>
+            <select name="role" th:field="*{role}">
+                <option value="cstmr">Customer</option>
+                <option value="emp">Employee</option>
+                <option value="admn">Admin</option>
+            </select>
+        </div>
+        <br>
+        <br>
+        <button>Create Account</button>
+    </form>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+      $('#phoneNumber').inputmask('(999) 999-9999');
+    });
+</script>

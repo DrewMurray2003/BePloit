@@ -1,0 +1,57 @@
+<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="table-container">
+    <div class="bp-table-top">
+        <h2 class="bp-table-title" th:text="${className} + 's'"></h2>
+        <div class="search-container">
+            <form action="/search">
+              <input type="text" placeholder="Search" name="search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="bp-table-sort">
+            <div class="bp-table-sort-item">
+                <label>Sort By:</label>
+                <select name="sortBy">
+                    <option value="id">ID</option>
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
+                    <option value="email">Email</option>
+                    <option value="phoneNumber">Phone Number</option>
+                    <option value="role">Role</option>
+                </select>
+            </div>
+            <div class="bp-table-sort-item">
+                <label>Order:</label>
+                <select name="order">
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+            </div>
+        </div>
+    </div>
+<table th:object="${tableItems}"  class="bp-table">
+    <tr>
+        <th th:each="property : ${tableItems[0].getClass().declaredFields}" 
+        th:if="${!#strings.contains(property.toString(), 'List')}"
+        th:with="propertyName=${#strings.substringAfter(property.toString(), className + '.' )}"
+        th:text="${#strings.capitalize(propertyName)}"></th>
+    </tr>
+    <tr th:each="item: ${tableItems}" th:data-id="${item[#strings.substringAfter(tableItems[0].getClass().declaredFields[0].toString(), className + '.' )]}" th:class-name="${className}" onclick="redirectToAccountDetails(this)">
+            <td 
+            th:each="property : ${item.getClass().declaredFields}"
+            th:if="${!#strings.contains(property.toString(), 'List')}"
+            th:with="propertyName=${#strings.substringAfter(property.toString(), className + '.' )}"
+            th:text="${item[propertyName]}"></td>
+    </tr>
+</table>
+</div>
+
+<script th:inline="javascript">
+    function redirectToAccountDetails(element) {
+        var accountId = element.getAttribute('data-id');
+        var className = element.getAttribute('class-name');
+        window.location.href = '/' + className + '?id=' + accountId;
+    }
+</script>

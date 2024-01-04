@@ -1,0 +1,30 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+
+.search-container {
+    float: right;
+}
+
+.search-container input {
+    border-top-left-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+    padding: 6px;
+    font-size: 17px;
+    border: none;
+}
+
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    background: var(--main-accent3);
+    color: var(--light);
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-top-right-radius: 0.7rem;
+    border-bottom-right-radius: 0.7rem;
+    transition: .2s;
+}
+  
+.search-container button:hover {
+    background: var(--main-accent2);
+}
